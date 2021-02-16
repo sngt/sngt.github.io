@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>demo</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <input type="text" id="channel-id" />
+        <!-- <input type="url" id="spreadsheet-url" /> -->
+        <button id="execution">GET</button>
+    </header>
+    <iframe src="" class="hidden"></iframe>
+    <main id="out"></main>
+    <script>
+      const _out = document.querySelector('#out')
+      const _iframe = document.querySelector('iframe')
+      _iframe.addEventListener('load', () => {
+        if (!_iframe.src) {
+            return
+        }
+        console.log(document.innerHTML)
+        const impressions = _iframe.contentWindow.document.querySelector('.value.debug-metric-value.style-scope.yta-explore-table-row').innerText
+        console.log(impressions)
+        _out.innerText = `インプレッション数: ${impressions}`
+      })
+      const _channelId = document.querySelector('#channel-id')
+      const _spreadsheetId = document.querySelector('#spreadsheet-id')
+      document.querySelector('#execution').addEventListener('click', () => {
+        if (!_channelId.value) {
+          return
+        }
+        const channelId = _channelId.value
+        _iframe.src = `https://studio.youtube.com/channel/${channelId}/analytics/tab-reach_viewers/period-default/explore?entity_type=CHANNEL&entity_id=${channelId}&time_period=4_weeks&explore_type=TABLE_AND_CHART&metric=VIDEO_THUMBNAIL_IMPRESSIONS&granularity=DAY&t_metrics=VIDEO_THUMBNAIL_IMPRESSIONS&t_metrics=VIDEO_THUMBNAIL_IMPRESSIONS_VTR&t_metrics=VIEWS&t_metrics=WATCH_TIME&t_metrics=ESTIMATED_UNIQUE_VIEWERS&v_metrics=VIDEO_THUMBNAIL_IMPRESSIONS&v_metrics=VIDEO_THUMBNAIL_IMPRESSIONS_VTR&v_metrics=VIEWS&v_metrics=WATCH_TIME&v_metrics=ESTIMATED_UNIQUE_VIEWERS&dimension=VIDEO&o_column=VIDEO_THUMBNAIL_IMPRESSIONS&o_direction=ANALYTICS_ORDER_DIRECTION_DESC`
+      })
+    </script>
+</body>
+</html>
