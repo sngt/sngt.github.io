@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 export const ArithmeticType = {
   MUL_BY_11: 1,
@@ -57,5 +57,11 @@ export const useParams = () => {
     []
   );
 
-  return { changeMode, num1, num2, answer, proceed, setMode };
+  const [isStarted, setStarted] = useState(false);
+  const start = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    setStarted(true);
+    e.stopPropagation();
+  }, []);
+
+  return { answer, changeMode, isStarted, num1, num2, proceed, start };
 };

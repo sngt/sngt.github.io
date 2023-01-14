@@ -5,13 +5,16 @@ import { ArithmeticType, useParams } from "./hooks";
 const inter = Inter({ subsets: ["latin"] });
 
 const Arithmetic = () => {
-  const { answer, changeMode, num1, num2, proceed } = useParams();
+  const { answer, changeMode, isStarted, num1, num2, proceed, start } =
+    useParams();
 
   return (
     <main className={`${styles.main} ${inter.className}`}>
-      <div className={styles.description}>
-        <p>Click the formula to proceed</p>
-      </div>
+      {!isStarted && (
+        <div className={styles.description} onClick={start}>
+          <p>Tap the formula to proceed.</p>
+        </div>
+      )}
 
       <div className={styles.center} onClick={proceed}>
         <div className={styles.numbers}>{num1}</div>x
